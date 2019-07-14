@@ -35,7 +35,7 @@ steps:
       test-env
     
 - script: |
-    docker create --name testResultContainer ***/jspipeline:test-env
+    docker create --name testResultContainer '***/jsPipeline/node-service:test-env'
     docker cp testResultContainer:/app/results ./test-results
     docker cp testResultContainer:/app/coverage ./coverage
     docker rm testResultContainer
