@@ -9,24 +9,35 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: NodeTool@0
+- task: Docker@2
+  displayName: Login to ACR
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-  
-- task: PublishTestResults@2
+    command: login
+    containerRegistry: NodeContainerRegistry
+- task: Docker@2
+  displayName: Build
   inputs:
-    testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-    testResultsFiles: '**/TEST-*.xml' 
-    
-- task: PublishCodeCoverageResults@1
-  inputs: 
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+    command: build
+    repository: jsPipeline
+    tags: tag1
+#steps:
+#- task: NodeTool@0
+#  inputs:
+#    versionSpec: '10.x'
+#  displayName: 'Install Node.js'
+#
+#- script: |
+#    npm install
+#    npm run build
+#  displayName: 'npm install and build'
+#  
+#- task: PublishTestResults@2
+#  inputs:
+#    testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+#    testResultsFiles: '**/TEST-*.xml' 
+#    
+#- task: PublishCodeCoverageResults@1
+#  inputs: 
+#    codeCoverageTool: Cobertura
+#    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+#    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
