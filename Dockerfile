@@ -6,6 +6,7 @@ COPY . .
 RUN npm install
 
 FROM node:10.16.0-alpine as test-env
+LABEL test-results=true
 WORKDIR /app
 COPY --from=build-env /app .
 RUN npm run build
