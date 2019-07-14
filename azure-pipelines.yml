@@ -34,8 +34,8 @@ steps:
     
 - script: |
     docker create --name testResultContainer ***/jspipeline:test-env
-    docker cp testResultContainer:/results ./test-results
-    docker cp testResultContainer:/coverage ./coverage
+    docker cp testResultContainer:/app/results ./test-results
+    docker cp testResultContainer:/app/coverage ./coverage
     docker rm testResultContainer
   displayName: 'Get Test Results and Coverage'
   
