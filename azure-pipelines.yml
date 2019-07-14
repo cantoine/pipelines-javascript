@@ -35,7 +35,8 @@ steps:
       test-env
     
 - script: |
-    docker create --name testResultContainer '***/jspipeline/node-service:test-env'
+    export id=$(docker images --filter "label=test-results=true" -q | head -1)
+    docker create --name testcontainer $id
     docker cp testResultContainer:/app/results ./test-results
     docker cp testResultContainer:/app/coverage ./coverage
     docker rm testResultContainer
