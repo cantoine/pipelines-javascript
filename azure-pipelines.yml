@@ -33,7 +33,7 @@ steps:
     tags: test-env
     
 - script: |
-    docker create --name testResultContainer jspipeline:test-env
+    docker create --name testResultContainer ***/jspipeline:test-env
     docker cp testResultContainer:/results ./test-results
     docker cp testResultContainer:/coverage ./coverage
     docker rm testResultContainer
