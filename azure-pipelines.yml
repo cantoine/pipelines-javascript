@@ -20,7 +20,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    repository: jsPipeline
+    repository: jsPipeline/node-service
     arguments: --target=build-env
     tags: |
       buildEnv
@@ -29,7 +29,7 @@ steps:
   displayName: Test
   inputs:
     command: build
-    repository: jsPipeline
+    repository: jsPipeline/node-service
     arguments: --target=test-env
     tags: |
       test-env
