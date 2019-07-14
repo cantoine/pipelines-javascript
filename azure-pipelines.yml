@@ -35,8 +35,9 @@ steps:
 - script: |
     docker create --name testResultContainer jspipeline:test-env
     docker cp testResultContainer:/results ./test-results
+    docker cp testResultContainer:/coverage ./coverage
     docker rm testResultContainer
-  displayName: 'Get Test Results'
+  displayName: 'Get Test Results and Coverage'
   
 - task: PublishTestResults@2
   inputs:
@@ -46,8 +47,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs: 
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test-results/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/test-results/coverage'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/*coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
 
 - task: Docker@2
   displayName: Logout of ACR
