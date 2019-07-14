@@ -31,7 +31,13 @@ steps:
     repository: jsPipeline
     arguments: --target=test-env
     tags: test-env
-
+    
+- script: |
+    docker create --name testResultContainer jspipeline:test-env
+    docker cp testResultContainer:/results ./test-results
+    docker rm testResultContainer
+  displayName: 'Get Test Results'
+  
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
@@ -40,8 +46,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs: 
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test-results/*coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/test-results/coverage'
 
 - task: Docker@2
   displayName: Logout of ACR
