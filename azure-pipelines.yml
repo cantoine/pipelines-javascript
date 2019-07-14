@@ -22,7 +22,8 @@ steps:
     command: build
     repository: jsPipeline
     arguments: --target=build-env
-    tags: build-env
+    tags: |
+      buildEnv
     
 - task: Docker@2
   displayName: Test
@@ -30,7 +31,8 @@ steps:
     command: build
     repository: jsPipeline
     arguments: --target=test-env
-    tags: test-env
+    tags: |
+      test-env
     
 - script: |
     docker create --name testResultContainer ***/jspipeline:test-env
