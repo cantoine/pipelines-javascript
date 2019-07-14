@@ -15,4 +15,4 @@ WORKDIR /app
 COPY --from=build-env /app/server.js ./
 COPY --from=build-env /app/package.json ./
 RUN npm i --only=production
-ENTRYPOINT ["npm", "start"][skip ci]
+ENTRYPOINT ["npm", "start"]
