@@ -37,7 +37,7 @@ steps:
 - script: |
     export id=$(docker images --filter "label=test-results=true" -q | head -1)
     docker create --name testResultContainer $id
-    docker cp testResultContainer:/app/results ./test-results
+    docker cp testResultContainer:/app/results/TEST-RESULTS.xml ./
     docker cp testResultContainer:/app/coverage ./coverage
     docker rm testResultContainer
   displayName: 'Get Test Results and Coverage'
@@ -45,7 +45,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: './test-results/TEST-*.xml' 
+    testResultsFiles: '**/TEST-*.xml' 
     
 - task: PublishCodeCoverageResults@1
   inputs: 
