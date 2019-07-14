@@ -45,7 +45,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: './TEST-RESULT.xml' 
+    testResultsFiles: './TEST-RESULTS.xml' 
     
 - task: PublishCodeCoverageResults@1
   inputs: 
