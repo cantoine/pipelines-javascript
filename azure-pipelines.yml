@@ -56,25 +56,18 @@ steps:
 - task: Docker@2
   displayName: Production Build
   inputs:
-    command: build
+    command: buildAndPush
     repository: jspipeline/node-service
     arguments: --target=production-env
+    containerRegistry: NodeContainerRegistry
     tags: |
       production-env
-    
-- task: Docker@2
-  displayName: Push to ACR
-  inputs:
-    command: push
-    repository: jspipeline/node-service:production-env
-    containerRegistry: NodeContainerRegistry
     
 - task: Docker@2
   displayName: Logout of ACR
   inputs:
     command: logout
     containerRegistry: NodeContainerRegistry
-    
     
 #steps:
 #- task: NodeTool@0
