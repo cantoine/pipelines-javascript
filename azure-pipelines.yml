@@ -54,10 +54,19 @@ steps:
     reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
     
 - task: Docker@2
+  displayName: Production Build
+  inputs:
+    command: build
+    repository: jspipeline/node-service
+    arguments: --target=production-env
+    tags: |
+      production-env
+    
+- task: Docker@2
   displayName: Push to ACR
   inputs:
     command: push
-    repository: groupName/nodeServer
+    repository: jspipeline/node-service:production-env
     containerRegistry: NodeContainerRegistry
     
 - task: Docker@2
